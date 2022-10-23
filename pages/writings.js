@@ -1,10 +1,9 @@
-import WritingList from '@/components/writinglist'
 import Layout from '@/components/layout'
+import WritingsList from '@/components/writinglist'
 import { WRITING_OG_IMAGE_URL } from '@/lib/constants'
 import Head from 'next/head'
-import { getAllWritings } from '@/lib/api'
 
-export default function Index({ allWritings }) {
+export default function Index(posts) {
   return (
     <>
       <Layout>
@@ -24,15 +23,8 @@ export default function Index({ allWritings }) {
           <meta name="twitter:image" content={WRITING_OG_IMAGE_URL} />
         </Head>
         <h1 className="page-title-design">Writings</h1>
-        <WritingList className="mt-6 lg:mt-16" posts={allWritings} />
+        <WritingsList className="mt-6 lg:mt-16" posts={posts} />
       </Layout>
     </>
   )
-}
-
-export async function getStaticProps({ preview }) {
-  const allWritings = await getAllWritings()
-  return {
-    props: { allWritings },
-  }
 }

@@ -91,7 +91,7 @@ export default function Index() {
         </div>
         <div className="mt-6">
           <Link
-            href="/Shreyas_Gupta_Design_Resume-compressed.pdf" // Add resume later
+            href="" // Add resume later
             passHref={true}
           >
             <button className="flex items-center p-4 mt-4 font-medium text-white transition duration-300 bg-black border-2 border-black cursor-pointer dark:bg-white dark:text-black rounded-xl hover:opacity-80">

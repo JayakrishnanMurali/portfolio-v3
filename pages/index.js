@@ -1,7 +1,5 @@
 import Layout from '@/components/layout'
-import ProjectList from '@/components/projectlist'
 import WritingList from '@/components/writinglist'
-import { getRecentWritting } from '@/lib/api'
 import { HOME_OG_IMAGE_URL } from '@/lib/constants'
 import { useTheme } from 'next-themes'
 import Head from 'next/head'
@@ -9,8 +7,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { works } from '@/lib/works'
+import { writtings } from '@/lib/writtings'
 
-export default function Index({ allWork, recentWritings }) {
+export default function Index() {
   const [mounted, setMounted] = useState(false)
   const { theme } = useTheme()
 
@@ -103,18 +102,18 @@ export default function Index({ allWork, recentWritings }) {
                     alt="twitter logo"
                   />
                 </div>
-                <div className="font-normal"> Say hello</div>
+                <div className="font-normal">Say hello</div>
               </button>
             </Link>
           </div>
         </div>
 
         <div className="mt-16">
-          <div className="home-page-title">Selected works</div>
+          <div className="home-page-title">Some of my works</div>
 
           {works.map((work) => (
             <div key={work.id}>
-              <div className="mb-12 group">
+              <div className="mb-20 group">
                 <a target="_blank" href={work.hostedLink}>
                   <div className="overflow-hidden duration-500 transform cursor-pointer group-hover:shadow-xl hover:scale-100 rounded-xl">
                     <Image
@@ -155,28 +154,20 @@ export default function Index({ allWork, recentWritings }) {
               </div>
             </div>
           ))}
-
-          <ProjectList posts={allWork} />
         </div>
 
-        <div className="mt-24 lg:mt-36">
+        <div className="">
           <div className="home-page-title">Selected Writings</div>
-          <WritingList posts={recentWritings} />
-          <Link href="/writings" passHref={true}>
-            <button className="mt-4 text-black underline cursor-pointer dark:text-white">
-              Read More
-            </button>
-          </Link>
+          <WritingList posts={writtings} />
+          {!(writtings.length < 3) && (
+            <Link href="/writings" passHref={true}>
+              <button className="mt-4 text-black underline cursor-pointer dark:text-white">
+                Read More
+              </button>
+            </Link>
+          )}
         </div>
       </Layout>
     </>
   )
-}
-
-export async function getStaticProps() {
-  const recentWritings = await getRecentWritting()
-  const allWork = []
-  return {
-    props: { allWork, recentWritings },
-  }
 }
